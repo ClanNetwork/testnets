@@ -43,7 +43,7 @@ go version
 #### Build Clan Network from source
 
 ```sh
-mkdir -p $GOPATH/src/github.com/public-awesome
+mkdir -p $GOPATH/src/github.com/ClanNetwork
 cd $GOPATH/src/github.com/ClanNetwork
 git clone https://github.com/ClanNetwork/clan-network && cd clan-network
 git fetch origin --tags
@@ -88,8 +88,8 @@ go: go version go1.18 darwin/amd64
    Fetch `genesis.json` into `cland`'s `config` directory.
 
    ```sh
-   > curl -s https://raw.githubusercontent.com/ClanNetwork/testnets/main/testnet-1/genesis/genesis.tar.gz > genesis.tar.gz
-   > tar -C ~/.clan/config/ -xvf genesis.tar.gz
+   > curl -s https://raw.githubusercontent.com/ClanNetwork/testnets/main/testnet-1/genesis.json > genesis.json
+   > mv genesis.json ~/.clan/config/
    ```
 
 4. Create validator
