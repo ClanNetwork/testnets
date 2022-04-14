@@ -8,37 +8,11 @@
 
 ## Software requirements
 
-- [Ubuntu Setup Guide](./ubuntu.md)
 - Latest version : (https://github.com/ClanNetwork/clan-network/releases/tag/latest)
 
 ### Install Clan Network
 
-#### Install Go
-
-Clan Network is built using Go and requires Go version 1.18+. In this example, we will be installing Go on Ubuntu 20.04:
-
-```sh
-# First remove any existing old Go installation
-sudo rm -rf /usr/local/go
-
-# Install the latest version of Go using this helpful script
-curl https://raw.githubusercontent.com/canha/golang-tools-install-script/master/goinstall.sh | bash
-
-# Update environment variables to include go
-cat <<'EOF' >>$HOME/.profile
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
-EOF
-source $HOME/.profile
-```
-
-To verify that Go is installed:
-
-```sh
-go version
-# Should return go version go1.16.4 linux/amd64
-```
+Requires [Go version v1.18+](https://golang.org/doc/install)
 
 #### Build Clan Network from source
 
@@ -47,7 +21,7 @@ mkdir -p $GOPATH/src/github.com/ClanNetwork
 cd $GOPATH/src/github.com/ClanNetwork
 git clone https://github.com/ClanNetwork/clan-network && cd clan-network
 git fetch origin --tags
-make build linux && make install
+make build && make install
 ```
 
 #### Verify installation
