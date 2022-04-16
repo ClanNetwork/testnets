@@ -33,7 +33,7 @@ mkdir -p $GOPATH/src/github.com/ClanNetwork
 cd $GOPATH/src/github.com/ClanNetwork
 git clone https://github.com/ClanNetwork/clan-network && cd clan-network
 git fetch origin --tags
-make build && make install
+make install
 ```
 
 #### Verify installation
