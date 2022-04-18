@@ -1,10 +1,10 @@
-# Clan Network's gamecube-1 Testnet Instructions: Part 1
+# Clan Network's gamecube-1 Testnet Instructions
 
 ## Minimum hardware requirements
 
 - 2x CPUs
 - 4GB RAM
-- 50GB+ of disk space
+- 25GB+ of disk space
 
 ## Software requirements
 
@@ -180,6 +180,5 @@ WantedBy=multi-user.target
    --pubkey=$(cland tendermint show-validator) \
    --moniker <your_moniker> \
    --chain-id gamecube-1 \
-   --gas-prices 0.025uclans \
    --from <key-name>
    ```
