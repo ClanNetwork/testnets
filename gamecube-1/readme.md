@@ -10,9 +10,9 @@
 
 - Latest version : (https://github.com/ClanNetwork/clan-network/releases/tag/latest)
 
-### Install Clan Network
+## Install Clan Network
 
-#### Option 1: Download binary
+### Option 1: Download binary
 
 1. Download the binary for your platform: [releases](https://github.com/ClanNetwork/clan-network/releases/tag/latest).
 2. Copy it to a location in your PATH, i.e: `/usr/local/bin` or `$HOME/bin`.
@@ -24,9 +24,34 @@ i.e:
 > sudo tar -C /usr/local/bin -zxvf clan-network_latest_linux_amd64.tar.gz
 ```
 
-#### Option 2: Build from source
+### Option 2: Build from source
 
 Requires [Go version v1.18+](https://golang.org/doc/install)
+
+```sh
+# 1. Download the archive
+
+wget https://go.dev/dl/go1.18.1.linux-amd64.tar.gz
+
+# Optional: remove previous /go files:
+
+sudo rm -rf /usr/local/go
+
+# 2. Unpack:
+
+sudo tar -C /usr/local -xzf go1.18.1.linux-amd64.tar.gz
+
+# 3. Add the path to the go-binary to your system path:
+# (for this to persist, add this line to your ~/.profile or ~/.bashrc or  ~/.zshrc)
+
+export PATH=$PATH:/usr/local/go/bin
+
+# 4. Verify your installation:
+
+go version
+
+# go version go1.18.1 linux/amd64
+```
 
 ```sh
 mkdir -p $GOPATH/src/github.com/ClanNetwork
@@ -36,7 +61,7 @@ git fetch origin --tags
 make install
 ```
 
-#### Verify installation
+## Verify installation
 
 To verify if the installation was successful, execute the following command:
 
@@ -85,7 +110,64 @@ go: go version go1.18 darwin/amd64
    7a496cddea2538231af2179129447999725b60000b9073f39007485df7fc2961  /home/amit/.clan/config/genesis.json
    ```
 
-4. Create validator
+4. Add persistent peers
+   Add persistent peers in `config.toml`.
+
+   ```sh
+   > vi $HOME/.clan/config/config.toml
+   ```
+
+   Find the following section and add the seed nodes.
+
+   ```sh
+   # Comma separated list of seed nodes to connect to
+   seeds = ""
+   ```
+
+   ````sh
+   # Comma separated list of persistent peers to connect to
+   persistent_peers = "15bd2b7e8c2f4335dc65f11bc1f432dc2e99ea7e@104.196.221.90:26656"
+   ```ֿ
+   ````
+
+## Start node automatically (Linux only)
+
+Create a `systemd` service
+
+```sh
+> sudo vi /etc/systemd/system/cland.service
+```
+
+Copy and paste the following and update `<your_username>` and `<go_workspace>`:
+
+```sh
+[Unit]
+Description=cland
+After=network-online.target
+
+[Service]
+User=<your_username>
+ExecStart=/home/<your_username>/<go_workspace>/bin/cland start
+Restart=always
+RestartSec=3
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+```
+
+**This assumes `$HOME/go_workspace` to be your Go workspace. Your actual workspace directory may vary.**
+
+```sh
+> sudo systemctl enable cland
+> sudo systemctl start cland
+```
+
+## Create testnet validator
+
+1. Request tokens from the Faucet (TBD Link).
+
+2. Create validator
 
    ```sh
    $ cland tx staking create-validator \
@@ -97,9 +179,7 @@ go: go version go1.18 darwin/amd64
    --details "validators write bios too" \
    --pubkey=$(cland tendermint show-validator) \
    --moniker <your_moniker> \
-   --chain-id testnet-1 \
+   --chain-id gamecube-1 \
    --gas-prices 0.025uclans \
    --from <key-name>
    ```
-
-5. Request tokens from the Faucet if you need more (TBD Link).
