@@ -8,10 +8,6 @@ gamecube-1 testnet purpose is to serve as a development testnet, mainly to test 
 - 4GB RAM
 - 25GB+ of disk space
 
-## Software requirements
-
-- Latest version : (https://github.com/ClanNetwork/clan-network/releases/tag/latest)
-
 ## Install Clan Network
 
 ### Option 1: Download binary
