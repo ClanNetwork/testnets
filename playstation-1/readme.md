@@ -1,104 +1,171 @@
-# Clan Network PlayStation-1 Testnet Instructions: First Part
+# Clan Network PlayStation-1 Testnet Instructions (2/2): Prepare Node
 
-## Minimum hardware requirements
+Genesis file: https://github.com/ClanNetwork/testnets/genesis-files/playstation-1.json
 
-- 2x CPUs
-- 4GB RAM
-- 50GB+ of disk space
+Hash: TBD
 
-### Install Clan Network
+Seeds: TBD
 
-#### Download binary from github
+Peers: TBD
 
-1. Download the binary for your platform: [releases](https://github.com/ClanNetwork/clan-network/releases/tag/v1.0.0-alpha).
-2. Copy it to a location in your PATH, i.e: `/usr/local/bin` or `$HOME/bin`.
+## Overview
+
+Thank you for submitting a gentx! This guide will provide instructions on getting ready for the testnet.
+
+**The Chain Genesis Time is TBD**
+
+Please have your validator up and ready by this time, and be available for further instructions if necessary
+at that time.
+
+The primary point of communication for the genesis process will be the #validators
+channel on the [Clan's Discord](https://discord.com/invite/gnEeUKM8TW).
+
+## Instructions
+
+This guide assumes that you have completed the [Submit Gentx part](playstation-1/submit-gents.md). You should be running on a machine that meets the hardware requirements specified in Part 1 with Go installed. We are assuming you already have a daemon home (`$HOME/.clan`) setup.
+
+These examples are written targeting an Ubuntu 20.04 system. Relevant changes to commands should be made depending on the OS/architecture you are running on.
+
+### Update cland to v1.0.1-alpha
+
+Please update to the `v1.0.1-alpha` tag and rebuild your binaries.
 
 ```sh
-> wget https://github.com/ClanNetwork/clan-network/releases/download/v1.0.0-alpha/clan-network_v1.0.0-alpha_linux_amd64.tar.gz
-> sudo tar -C /usr/local/bin -zxvf clan-network_v1.0.0-alpha_linux_amd64.tar.gz
+git clone https://github.com/ClanNetwork/clan-network
+cd clan-network
+git checkout v1.0.1-alpha
+
+make install
 ```
 
-#### Verify installation
+### Verify installation
 
-To verify if the installation was successful, execute the following command:
-
-```sh
-cland version --long
-```
-
-It will display the version of `cland` currently installed:
+Verify that everything is OK.
 
 ```sh
 name: Clan-Network
 server_name: clan-networkd
-version: latest
-commit: a7ee4541dbb19e55221bbb575284eeb39c462610
+version: 1.0.1-alpha
+commit: 3b4431318eeb2bf4828e8112536da0722dc3644d
 build_tags: ""
-go: go version go1.18 linux/amd64
+go: go version go1.18 darwin/amd64
 ```
 
-## Setup validator node
+If the software version does not match, then please check your `$PATH` to ensure the correct `cland` is running.
 
-Below are the instructions to generate and submit your genesis transaction.
+### Save chain-id in config
 
-### Generate genesis transaction (gentx)
+Please save the chain-id to your `client.toml`. This will make it so you do not have to manually pass in the chain-id flag for every CLI command.
 
-1. Initialize the Clan Network directories and create the local genesis file with the correct
-   chain-id
+```sh
+cland config chain-id playstation-1
+```
 
-   ```sh
-   cland config chain-id playstation-1
-   # moniker is the name of your node
-   cland init <moniker>
-   ```
+### Generate genesis file
 
-2. Create a local key pair
+Note:
+If you wan't to skip this part you can just download the final genesis file :https://github.com/ClanNetwork/testnets/genesis-files/playstation-1.json
 
-   ```sh
-   cland keys add <key-name>
-   ```
+clone the testnets folder
 
-3. Add your account to your local genesis file with a given amount and the key you
-   just created. Use only `1000000000000uclan`, other amounts will be ignored.
+```sh
+git clone https://github.com/ClanNetwork/testnets
+cd testnets
+```
 
-   ```sh
-   cland add-genesis-account $(cland keys show <key-name> -a) 1000000000000uclan
-   ```
+If you haven't already, install jq
 
-4. Generate the genesis transaction (gentx) that submits your validator info to the chain.
-   The amount here is how much of your own funds you want to delegate to your validator (self-delegate).
-   Start with 50% of your total (500000000000uclan). You can always delegate the rest later.
+```sh
+# Install packages necessary to run go and jq for pretty formatting command line outputs
+sudo apt install build-essential jq -y
+```
 
-   ```sh
-   cland gentx <key-name> 500000000000uclan --chain-id=playstation-1
-   ```
+Update to the latest:
 
-   If all goes well, you will see a message similar to the following:
+```sh
+git checkout master
+git pull
+```
 
-   ```sh
-   Genesis transaction written to "/home/user/.clan/config/gentx/gentx-******.json"
-   ```
+Build the genesis file:
 
-### Submit genesis transaction
+```sh
+sudo chmod +x ./build-playstation-1-genesis.sh
+./build-playstation-1-genesis.sh
+```
 
-Submit your gentx in a PR [here](https://github.com/ClanNetwork/testnets)
+\_NOTE: This can take a while
 
-- Fork [the testnets repo](https://github.com/ClanNetwork/testnets) into your Github account
+Verify your genesis file was created properly:
 
-- Clone your repo using
+```sh
+sha256sum ~/.clan/config/genesis.json
+TBD
+```
 
-  ```sh
-  git clone https://github.com/<github-username>/testnets
-  ```
+### Updates to config files
 
-- Copy the generated gentx json file to `<repo_path>/playstation-1/gentxs/`
+You should review the `config.toml` and `app.toml` that was generated when you ran `cland init` last time.
 
-  ```sh
-  cd testnets
-  cp ~/.clan/config/gentx/gentx*.json ./playstation-1/gentxs/
-  ```
+When it comes the min gas fees, our recommendation is to leave this blank for now (charge no gas fees), to make the UX as seamless as possible
+for users to be able to pay with IBC assets. So in `app.toml`:
 
-- Commit and push to your repo
-- Create a PR onto https://github.com/ClanNetwork/testnets
+```sh
+minimum-gas-prices = ""
+```
 
-✨ Congrats! You have done everything you need to participate in the testnet. Now just hang tight for further instructions on starting your node when the network starts (28/4/2022 1300 UTC).
+### Start your node
+
+Now that everything is setup and ready to go, you can start your node.
+
+```sh
+cosmovisor start
+```
+
+You will need some way to keep the process always running. If you're on linux, you can do this by creating a
+service.
+
+```sh
+sudo tee /etc/systemd/system/cland.service > /dev/null <<'EOF'
+[Unit]
+Description=Clan daemon
+After=network-online.target
+
+[Service]
+User=<your-username>
+ExecStart=/home/<your-username>/go/bin/cland start
+Restart=on-failure
+RestartSec=3
+LimitNOFILE=4096
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo systemctl enable cland
+sudo systemctl start cland
+
+sudo tee ./status.sh <<'EOF'
+sudo systemctl status cland
+
+echo "cland service started"
+EOF
+```
+
+Then update and start the node
+
+```sh
+sudo -S systemctl daemon-reload
+sudo -S systemctl enable cland
+sudo -S systemctl start cland
+```
+
+You can check the status with:
+
+```sh
+systemctl status cland | jq
+```
+
+## Conclusion
+
+Good luck! See ya in the Discord!
