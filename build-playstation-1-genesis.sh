@@ -7,7 +7,7 @@ FAUCET_INIT_COINS=50000000000000$DENOM
 ORACLE_INIT_COINS=1000000$DENOM
 GENTX_PATH="playstation-1"
 VALIDATORS_GENESIS_ALLOCATION=1000000000000$DENOM
-REQUIRED_VERSION="1.0.1-alpha"
+REQUIRED_VERSION="1.0.2-alpha"
 VERSION="$(cland version |  awk '{print $NF}')"
 SNAPSHOT_ATOM_STAKERS="snapshot_atom_9681900.json"
 SNAPSHOT_TERRA_STAKERS="snapshot_terra_6768200.json"
@@ -23,6 +23,9 @@ EXPORTED_CLAIM_ETH_RECORDS="exported-claim-eth-records.json"
 VALIDATOR_ADDRESS="clan10jq29ktde4xpges8ah0z4r48ywqsj7029u9f5c"
 ORACLE_ADDRESS="clan147m4eyj8ejcax2k5a96ag5yxan8884p37qnn9z"
 FAUCET_ADDRESS="clan1anl88fsxy2pucyxdxme8pmpmw779lvhhn0faks"
+DAO_ADDRESS="clan10q4cddypjcq5lr4j3dznt0e5krghrpcjzn94xz"
+CORE_DEV_ADDRESS="clan1cyk5jz84kmrqle6p0px0fdzu57jfyy5x4p697r"
+GOVERNANCE_AIRDROP_ADDRESS="clan105qpg0kmdv2sclprev8fr3a6gvcthekdxrvy8q"
 
 if [ "$VERSION" != "$REQUIRED_VERSION" ]; then
     echo "cland required $REQUIRED_VERSION, current $VERSION"
@@ -56,13 +59,13 @@ cland export-tango-snapshot ./$SNAPSHOT_TANGO_HOLDERS ./$SNAPSHOT_TANGO_HOLDERS-
 
 cland snapshot-to-claim-records ./$SNAPSHOT_TERRA_STAKERS-output.json ./$SNAPSHOT_SCRT_STAKERS-output.json ./$SNAPSHOT_ATOM_STAKERS-output.json --outputFile=./$EXPORTED_CLAIM_RECORDS 
 cland snapshot-to-claim-eth-records ./$SNAPSHOT_TANGO_HOLDERS-output.json --outputFile=./$EXPORTED_CLAIM_ETH_RECORDS
-cland prepare-genesis testnet $CHAIN_ID $EXPORTED_CLAIM_RECORDS $EXPORTED_CLAIM_ETH_RECORDS
+cland prepare-genesis testnet $CHAIN_ID $EXPORTED_CLAIM_RECORDS $EXPORTED_CLAIM_ETH_RECORDS --daoAddr=$DAO_ADDRESS --coreDevAddr=$CORE_DEV_ADDRESS
 
 cland init testmoniker --chain-id $CHAIN_ID
 
-cland add-genesis-account $VALIDATOR_ADDRESS $VALIDATOR_INIT_COINS
 cland add-genesis-account $ORACLE_ADDRESS $ORACLE_INIT_COINS
 cland add-genesis-account $FAUCET_ADDRESS $FAUCET_INIT_COINS
+cland add-genesis-account $GOVERNANCE_AIRDROP_ADDRESS $COSMOS_AIRDROP_ALLOCATION
 
 echo "Processing gentxs"
 mkdir -p ~/.clan/config/gentx
