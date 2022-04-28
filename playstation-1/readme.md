@@ -131,15 +131,7 @@ go: go version go1.18 darwin/amd64
 
 If the software version does not match, then please check your `$PATH` to ensure the correct `cland` is running.
 
-### 3. Init your node
-
-```sh
-cland config chain-id playstation-1
-
-cland init <moniker-name>
-```
-
-### 4. Genesis file
+### 3. Genesis file
 
 There are 2 options available to retrieve the genesis file:
 
@@ -193,7 +185,7 @@ sha256sum ~/.clan/config/genesis.json
 f3273087c1a8fd4a882c9e7e1d4ee1751b822c93df602f7288e8c69a71095e7b
 ```
 
-### 5. Updates to config files
+### 4. Updates to config files
 
 #### Add persistent peers in `config.toml`.
 
@@ -215,7 +207,7 @@ vim $HOME/.clan/config/app.toml
 minimum-gas-prices = "0uclan"
 ```
 
-### 6. Start your node
+### 5. Start your node
 
 Now that everything is setup and ready to go, you can start your node.
 
