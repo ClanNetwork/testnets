@@ -4,7 +4,7 @@
       {
         "@type": "/cosmos.staking.v1beta1.MsgCreateValidator",
         "description": {
-          "moniker": "keytango-2",
+          "moniker": "keytango-1",
           "identity": "",
           "website": "",
           "security_contact": "",
@@ -16,16 +16,16 @@
           "max_change_rate": "0.010000000000000000"
         },
         "min_self_delegation": "1",
-        "delegator_address": "clan15tqf0tn92254v4mt24yfavssdpxmfzwtkw0kz3",
-        "validator_address": "clanvaloper15tqf0tn92254v4mt24yfavssdpxmfzwt5p50gh",
+        "delegator_address": "clan10jq29ktde4xpges8ah0z4r48ywqsj7029u9f5c",
+        "validator_address": "clanvaloper10jq29ktde4xpges8ah0z4r48ywqsj7028n7s77",
         "pubkey": {
           "@type": "/cosmos.crypto.ed25519.PubKey",
-          "key": "bHhnLofyt+Z/FYY8bs0mo44O9H8OMBqG08VrRx3HyDQ="
+          "key": "CewRQuX28RhBe1Qk0/anhfkcQPrFjjy0LYqVDifiDlY="
         },
-        "value": { "denom": "uclan", "amount": "10000000000000" }
+        "value": { "denom": "uclan", "amount": "5000000000000" }
       }
     ],
-    "memo": "957ce5775d604831d11915fbdce03074e642c852@10.142.0.11:26656",
+    "memo": "84ae9a2621cc5c8bf84d5017c9a07f80ac9bb6e6@10.142.0.9:26656",
     "timeout_height": "0",
     "extension_options": [],
     "non_critical_extension_options": []
@@ -35,7 +35,7 @@
       {
         "public_key": {
           "@type": "/cosmos.crypto.secp256k1.PubKey",
-          "key": "Ay+fnesV3gMx9GhvWZ5NdAJPfYAtxuGrzglpXAxASue2"
+          "key": "AxnoyILXJ//Jj/JUR/Grf8rqm5F9N6OW1dvFHXlw0IoP"
         },
         "mode_info": { "single": { "mode": "SIGN_MODE_DIRECT" } },
         "sequence": "0"
@@ -44,6 +44,6 @@
     "fee": { "amount": [], "gas_limit": "200000", "payer": "", "granter": "" }
   },
   "signatures": [
-    "766M+R2hrA2WiXVXrsv1KqYb+N4RMhiu2uq7tzVH37N15wOFLBw/PykqGWhi8/iN85BcuqXRaJLHN+whJnqPmA=="
+    "qRZQUEahrjP2LhCCpeGPKPLgXUPXG0SZsPlfjUTOGlBWSVk5CNDTPmi5OU6e4NV6Ddi+FnfChnc1gA4AARzvxA=="
   ]
 }

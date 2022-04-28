@@ -49,7 +49,7 @@ do
     echo "Downloading $i holders snapshot..."
     wget -N snapshots.clan.network/$i.json.gz
     echo "Unzipping $i holders snapshot..."
-    gzip -d -k -f $i.json.gz
+    gzip -d -f $i.json.gz
 done
 
 cland export-snapshot ./$SNAPSHOT_TERRA_STAKERS.json ./$SNAPSHOT_TERRA_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_TERRA --minStaked=10000000 --whalecap=200000000000  

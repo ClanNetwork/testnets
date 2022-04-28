@@ -14,13 +14,13 @@ https://github.com/ClanNetwork/testnets/playstation-1/genesis.json
 **Genesis sha256**
 
 ```
-0b918df8123904508443eeed826f0ba08092297492e894eea6bdb7dd62ed2d05
+41cb43bbdd6ae222adabe5afdf15611d41220a3ae23f73840be8ad36300425ff
 ```
 
 **Persistent Peers**
 
 ```
-persistent_peers = "957ce5775d604831d11915fbdce03074e642c852@34.73.151.40:26656,f2347dc5db622c3abd4b93eb0e9e67841b9a6852@34.138.179.136:26656"
+persistent_peers = "d6fc2e32f0b4eb746832fdf18a1ce191cb53aaf0@34.73.151.40:26656,84ae9a2621cc5c8bf84d5017c9a07f80ac9bb6e6@34.138.179.136:26656"
 ```
 
 **Seed nodes**
@@ -190,7 +190,7 @@ sudo chmod +x ./build-playstation-1-genesis.sh
 
 ```sh
 sha256sum ~/.clan/config/genesis.json
-0b918df8123904508443eeed826f0ba08092297492e894eea6bdb7dd62ed2d05
+41cb43bbdd6ae222adabe5afdf15611d41220a3ae23f73840be8ad36300425ff
 ```
 
 ### 5. Updates to config files
@@ -208,7 +208,7 @@ seeds = ""
 
 ```sh
 # Comma separated list of persistent peers to connect to
-persistent_peers = "957ce5775d604831d11915fbdce03074e642c852@34.73.151.40:26656,f2347dc5db622c3abd4b93eb0e9e67841b9a6852@34.138.179.136:26656"
+persistent_peers = "d6fc2e32f0b4eb746832fdf18a1ce191cb53aaf0@34.73.151.40:26656,84ae9a2621cc5c8bf84d5017c9a07f80ac9bb6e6@34.138.179.136:26656"
 ```
 
 #### Set 0 gas prices in `app.toml`:
