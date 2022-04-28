@@ -14,7 +14,7 @@ https://github.com/ClanNetwork/testnets/playstation-1/genesis.json
 **Genesis sha256**
 
 ```
-f3273087c1a8fd4a882c9e7e1d4ee1751b822c93df602f7288e8c69a71095e7b
+00df7ac7b9477597cbe5d551661190013173f2ec1985fe91f7db70c3af011d42
 ```
 
 **Persistent Peers**
@@ -182,7 +182,7 @@ sudo chmod +x ./build-playstation-1-genesis.sh
 
 ```sh
 sha256sum ~/.clan/config/genesis.json
-f3273087c1a8fd4a882c9e7e1d4ee1751b822c93df602f7288e8c69a71095e7b
+00df7ac7b9477597cbe5d551661190013173f2ec1985fe91f7db70c3af011d42
 ```
 
 ### 4. Updates to config files
