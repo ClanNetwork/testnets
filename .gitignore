@@ -4,3 +4,4 @@ snapshot_*.json
 exchanges-*.json
 exported-claim-*.json
 generated-genesis.json
+.DS_Store
