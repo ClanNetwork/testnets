@@ -1,12 +1,12 @@
 #!/bin/bash
 
 DENOM=uclan
-CHAIN_ID=playstation-1
+CHAIN_ID=playstation-2
 PEER_VALIDATOR_GENESIS_ALLOCATION=10000000000000$DENOM
-VALIDATORS_GENESIS_ALLOCATION=1000000000000$DENOM
+VALIDATORS_GENESIS_ALLOCATION=100000000000$DENOM
 FAUCET_INIT_COINS=50000000000000$DENOM
 ORACLE_INIT_COINS=1000000$DENOM
-GENTX_PATH="playstation-1"
+GENTX_PATH="playstation-2"
 REQUIRED_VERSION="1.0.4-alpha"
 VERSION="$(cland version |  awk '{print $NF}')"
 SNAPSHOT_ATOM_STAKERS="snapshot_atom_9681900"
@@ -34,27 +34,27 @@ fi
 rm -f ~/.clan/config/genesis.json
 rm -f ~/.clan/config/gentx/*
 
-# declare -a SNAPSHOTS_LIST=($SNAPSHOT_ATOM_STAKERS $SNAPSHOT_TERRA_STAKERS $SNAPSHOT_SCRT_STAKERS $SNAPSHOT_TANGO_HOLDERS)
-# declare -a EXCHANGES_LIST=($EXCHANGES_TERRA $EXCHANGES_COSMOSHUB $EXCHANGES_SECRET)
+declare -a SNAPSHOTS_LIST=($SNAPSHOT_ATOM_STAKERS $SNAPSHOT_TERRA_STAKERS $SNAPSHOT_SCRT_STAKERS $SNAPSHOT_TANGO_HOLDERS)
+declare -a EXCHANGES_LIST=($EXCHANGES_TERRA $EXCHANGES_COSMOSHUB $EXCHANGES_SECRET)
 
-# for i in "${EXCHANGES_LIST[@]}"
-# do
-#     echo "Downloading $i"
-#     wget -N snapshots.clan.network/$i
-# done
+for i in "${EXCHANGES_LIST[@]}"
+do
+    echo "Downloading $i"
+    wget -N snapshots.clan.network/$i
+done
 
-# for i in "${SNAPSHOTS_LIST[@]}"
-# do
-#     echo "Downloading $i holders snapshot..."
-#     wget -N snapshots.clan.network/$i.json.gz
-#     echo "Unzipping $i holders snapshot..."
-#     gzip -d -f $i.json.gz
-# done
+for i in "${SNAPSHOTS_LIST[@]}"
+do
+    echo "Downloading $i holders snapshot..."
+    wget -N snapshots.clan.network/$i.json.gz
+    echo "Unzipping $i holders snapshot..."
+    gzip -d -f $i.json.gz
+done
 
-# cland export-snapshot ./$SNAPSHOT_TERRA_STAKERS.json ./$SNAPSHOT_TERRA_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_TERRA --minStaked=10000000 --whalecap=200000000000  
-# cland export-snapshot ./$SNAPSHOT_SCRT_STAKERS.json ./$SNAPSHOT_SCRT_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_SECRET --minStaked=100000000 --whalecap=200000000000 
-# cland export-snapshot ./$SNAPSHOT_ATOM_STAKERS.json ./$SNAPSHOT_ATOM_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_COSMOSHUB --minStaked=50000000 --whalecap=280000000000  
-# cland export-tango-snapshot ./$SNAPSHOT_TANGO_HOLDERS.json ./$SNAPSHOT_TANGO_HOLDERS-output.json $TANGO_AIRDROP_ALLOCATION --minTango=1000
+cland export-snapshot ./$SNAPSHOT_TERRA_STAKERS.json ./$SNAPSHOT_TERRA_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_TERRA --minStaked=10000000 --whalecap=200000000000  
+cland export-snapshot ./$SNAPSHOT_SCRT_STAKERS.json ./$SNAPSHOT_SCRT_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_SECRET --minStaked=100000000 --whalecap=200000000000 
+cland export-snapshot ./$SNAPSHOT_ATOM_STAKERS.json ./$SNAPSHOT_ATOM_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_COSMOSHUB --minStaked=50000000 --whalecap=280000000000  
+cland export-tango-snapshot ./$SNAPSHOT_TANGO_HOLDERS.json ./$SNAPSHOT_TANGO_HOLDERS-output.json $TANGO_AIRDROP_ALLOCATION --minTango=1000
 
 cland snapshot-to-claim-records ./$SNAPSHOT_TERRA_STAKERS-output.json ./$SNAPSHOT_SCRT_STAKERS-output.json ./$SNAPSHOT_ATOM_STAKERS-output.json --outputFile=./$EXPORTED_CLAIM_RECORDS 
 cland snapshot-to-claim-eth-records ./$SNAPSHOT_TANGO_HOLDERS-output.json --outputFile=./$EXPORTED_CLAIM_ETH_RECORDS
@@ -74,18 +74,10 @@ for i in $GENTX_PATH/gentxs/*.json; do
     cp $i ~/.clan/config/gentx/
 done
 
-echo "Processing peer gentxs"
-mkdir -p ~/.clan/config/gentx
-for i in $GENTX_PATH/peer-gentxs/*.json; do
-    echo $i
-    cland add-genesis-account $(jq -r '.body.messages[0].delegator_address' $i) $PEER_VALIDATOR_GENESIS_ALLOCATION 
-    cp $i ~/.clan/config/gentx/
-done
 
 cland collect-gentxs
 cland validate-genesis
 
-jq -S -f normalize.jq  ~/.clan/config/genesis.json > $GENTX_PATH/generated-genesis.json
-cp $GENTX_PATH/generated-genesis.json ~/.clan/config/genesis.json
+cp ~/.clan/config/genesis.json $GENTX_PATH/genesis.json
 shasum -a 256 $GENTX_PATH/genesis.json
 shasum -a 256 ~/.clan/config/genesis.json

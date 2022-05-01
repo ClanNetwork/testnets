@@ -44,7 +44,7 @@ Below are the instructions to generate and submit your genesis transaction.
    ```sh
    cland config chain-id playstation-2
    # moniker is the name of your node
-   cland init <moniker>
+   cland init <moniker> --chain-id=playstation-2
    ```
 
 2. Create a local key pair
