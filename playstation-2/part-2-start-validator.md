@@ -22,8 +22,8 @@ f9824537624c79f3ace324f992e9d87bc761304b093a050b6941476e9daafd35
 
 **Persistent Peers**
 
-```
-persistent_peers = "be8f9c8ff85674de396075434862d31230adefa4:35.231.178.87,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e:34.73.151.40"
+```sh
+persistent_peers = "be8f9c8ff85674de396075434862d31230adefa4@35.231.178.87:26656,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e@34.73.151.40:26656"
 ```
 
 **Seed nodes**
@@ -61,8 +61,7 @@ curl -s  https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation
 ### 2. Verify your genesis file was created properly
 
 ```sh
-sha256sum ~/.clan/config/genesis.json
-f9824537624c79f3ace324f992e9d87bc761304b093a050b6941476e9daafd35
+persistent_peers = "be8f9c8ff85674de396075434862d31230adefa4@35.231.178.87:26656,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e@34.73.151.40:26656"
 ```
 
 ### 3. Updates to config files
