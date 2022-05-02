@@ -27,12 +27,22 @@ sudo tar -C /usr/local/bin -zxvf clan-network_v1.0.4-alpha_linux_amd64.tar.gz
 
 #### Option 2: Build from source
 
-Requires [Go version v1.18+](https://golang.org/doc/install)
+##### Install local package list and toolchain
+
+```sh
+# update the local package list and install any available upgrades
+sudo apt-get update && sudo apt upgrade -y
+
+# install toolchain
+sudo apt install build-essential jq -y
+```
+
+##### Install go (1.18+ required):
 
 ```sh
 # 1. Download the archive
 
-wget https://go.dev/dl/go1.18.1.linux-amd64.tar.gz
+wget https://go.dev/dl/go1.18.linux-amd64.tar.gz
 
 # Optional: remove previous /go files:
 
@@ -40,31 +50,37 @@ sudo rm -rf /usr/local/go
 
 # 2. Unpack:
 
-sudo tar -C /usr/local -xzf go1.18.1.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.18.linux-amd64.tar.gz
 
 # 3. Add the path to the go-binary to your system path:
-# (for this to persist, add this line to your ~/.profile or ~/.bashrc or  ~/.zshrc)
+# (for this to persist, add this line to   your ~/.profile or ~/.bashrc or  ~/.zshrc)
 
-export PATH=$PATH:/usr/local/go/bin
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export GO111MODULE=on
+export PATH=$PATH:/usr/local/go/bin:$HOME/go/bin
+
+# After updating your ~/.profile you will need to source it:
+source ~/.profile
 
 # 4. Verify your installation:
 
 go version
 
-# go version go1.18.1 linux/amd64
+# go version go1.18 linux/amd64
 ```
 
-After installing go you need to clone the repo and checkout to the relevant version
+##### Download source code and build
 
 ```sh
+# Close and checkout to needed version
 git clone https://github.com/ClanNetwork/clan-network
 cd clan-network
 git fetch origin --tags
 git checkout v1.0.4-alpha
 
-make build
-
-sudo cp ./bin/cland /usr/local/bin/cland
+# Install
+make install
 ```
 
 ### 2. Verify installation
