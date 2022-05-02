@@ -8,7 +8,14 @@
 
 ## Steps
 
-### 1. Download binary from github
+### 1. Install cland
+
+There are 2 options available:
+
+- [Download binary from github](#option-1-download-binary-from-github)
+- [Build from source](#option-2-build-from-source)
+
+#### Option 1: Download binary from github
 
 1. Download the binary for your platform: [releases](https://github.com/ClanNetwork/clan-network/releases/tag/v1.0.4-alpha).
 2. Copy it to a location in your PATH, i.e: `/usr/local/bin` or `$HOME/bin`.
@@ -16,6 +23,48 @@
 ```sh
 wget https://github.com/ClanNetwork/clan-network/releases/download/v1.0.4-alpha/clan-network_v1.0.4-alpha_linux_amd64.tar.gz
 sudo tar -C /usr/local/bin -zxvf clan-network_v1.0.4-alpha_linux_amd64.tar.gz
+```
+
+#### Option 2: Build from source
+
+Requires [Go version v1.18+](https://golang.org/doc/install)
+
+```sh
+# 1. Download the archive
+
+wget https://go.dev/dl/go1.18.1.linux-amd64.tar.gz
+
+# Optional: remove previous /go files:
+
+sudo rm -rf /usr/local/go
+
+# 2. Unpack:
+
+sudo tar -C /usr/local -xzf go1.18.1.linux-amd64.tar.gz
+
+# 3. Add the path to the go-binary to your system path:
+# (for this to persist, add this line to your ~/.profile or ~/.bashrc or  ~/.zshrc)
+
+export PATH=$PATH:/usr/local/go/bin
+
+# 4. Verify your installation:
+
+go version
+
+# go version go1.18.1 linux/amd64
+```
+
+After installing go you need to clone the repo and checkout to the relevant version
+
+```sh
+git clone https://github.com/ClanNetwork/clan-network
+cd clan-network
+git fetch origin --tags
+git checkout v1.0.4-alpha
+
+make build
+
+sudo cp ./bin/cland /usr/local/bin/cland
 ```
 
 ### 2. Verify installation
@@ -42,7 +91,9 @@ Below are the instructions to generate and submit your genesis transaction.
    chain-id
 
    ```sh
+   # This step is optional but recommended
    cland config chain-id playstation-2
+
    # moniker is the name of your node
    cland init <moniker> --chain-id=playstation-2
    ```
@@ -96,4 +147,4 @@ Submit your gentx in a PR [here](https://github.com/ClanNetwork/testnets)
 - Commit and push to your repo
 - Create a PR onto https://github.com/ClanNetwork/testnets
 
-✨ Congrats! You have done everything you need to participate in the testnet. Now just hang tight for further instructions on starting your node when the network starts (28/4/2022 1300 UTC).
+✨ Congrats! You have done everything you need to participate in the testnet. Now just hang tight for further instructions on starting your node when the network starts.

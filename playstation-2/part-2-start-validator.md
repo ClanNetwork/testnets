@@ -6,18 +6,18 @@
 `v1.0.4-alpha`
 
 **Genesis Time**
-13:00 UTC on May 2, 2022
+8:00 UTC on May 4, 2022
 
 **Genesis File**
 
 ```
-https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation-2/genesis.json
+TBD
 ```
 
 **Genesis Sha256**
 
 ```
-f9824537624c79f3ace324f992e9d87bc761304b093a050b6941476e9daafd35
+TBD
 ```
 
 **Persistent Peers**
@@ -34,7 +34,7 @@ N/A
 
 Thank you for submitting a gentx! This guide will provide instructions on getting ready for the testnet.
 
-**The Chain Genesis Time is on 13:00 UTC on May 2, 2022**
+**The Chain Genesis Time is on 8:00 UTC on May 4, 2022**
 
 Please have your validator up and ready by this time, and be available for further instructions if necessary
 at that time.
@@ -62,7 +62,7 @@ curl -s  https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation
 
 ```sh
 sha256sum ~/.clan/config/genesis.json
-f9824537624c79f3ace324f992e9d87bc761304b093a050b6941476e9daafd35
+TBD
 ```
 
 ### 3. Updates to config files
