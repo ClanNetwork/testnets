@@ -2,25 +2,28 @@
 
 ## Details
 
-**cland version**
+**Version**
 `v1.0.4-alpha`
 
-**Genesis file**
+**Genesis Time**
+13:00 UTC on May 2, 2022
+
+**Genesis File**
 
 ```
-TBD
+https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation-2/genesis.json
 ```
 
-**Genesis sha256**
+**Genesis Sha256**
 
 ```
-TBD
+f9824537624c79f3ace324f992e9d87bc761304b093a050b6941476e9daafd35
 ```
 
 **Persistent Peers**
 
 ```
-persistent_peers = TBD
+persistent_peers = "be8f9c8ff85674de396075434862d31230adefa4:35.231.178.87,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e:34.73.151.40"
 ```
 
 **Seed nodes**
@@ -31,7 +34,7 @@ N/A
 
 Thank you for submitting a gentx! This guide will provide instructions on getting ready for the testnet.
 
-**The Chain Genesis Time is on TBD:TBD UTC on TBD, 2022**
+**The Chain Genesis Time is on 13:00 UTC on May 2, 2022**
 
 Please have your validator up and ready by this time, and be available for further instructions if necessary
 at that time.
@@ -59,7 +62,7 @@ curl -s  https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation
 
 ```sh
 sha256sum ~/.clan/config/genesis.json
-TBD
+f9824537624c79f3ace324f992e9d87bc761304b093a050b6941476e9daafd35
 ```
 
 ### 3. Updates to config files
@@ -71,7 +74,7 @@ vim $HOME/.clan/config/config.toml
 ```
 
 ```
-persistent_peers = "43de6c2ae93262a7369f2134c19cc87109c41006@34.73.151.40:26656,c8cf12593970f5762019f0742f911df31fc2c018@34.138.179.136:26656"
+persistent_peers = "be8f9c8ff85674de396075434862d31230adefa4:35.231.178.87,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e:34.73.151.40"
 ```
 
 #### 3.2 Set 0 gas prices in `app.toml`:
