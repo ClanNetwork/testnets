@@ -2,7 +2,7 @@
 
 DENOM=uclan
 CHAIN_ID=playstation-2
-PEER_VALIDATOR_GENESIS_ALLOCATION=10000000000000$DENOM
+FOUNDATION_VALIDATORS_GENTXS=1000000000000$DENOM
 VALIDATORS_GENESIS_ALLOCATION=100000000000$DENOM
 FAUCET_INIT_COINS=50000000000000$DENOM
 ORACLE_INIT_COINS=1000000$DENOM
@@ -71,6 +71,14 @@ mkdir -p ~/.clan/config/gentx
 for i in $GENTX_PATH/gentxs/*.json; do
     echo $i
     cland add-genesis-account $(jq -r '.body.messages[0].delegator_address' $i) $VALIDATORS_GENESIS_ALLOCATION 
+    cp $i ~/.clan/config/gentx/
+done
+
+echo "Processing foundation gentxs"
+mkdir -p ~/.clan/config/gentx
+for i in $GENTX_PATH/foundation-gentxs/*.json; do
+    echo $i
+    cland add-genesis-account $(jq -r '.body.messages[0].delegator_address' $i) $FOUNDATION_VALIDATORS_GENTXS 
     cp $i ~/.clan/config/gentx/
 done
 
