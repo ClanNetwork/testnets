@@ -22,7 +22,7 @@
           "@type": "/cosmos.crypto.ed25519.PubKey",
           "key": "7tulYgXsiFbz6j09BxFW2Tl5vr55BP4D80X43y/5O4s="
         },
-        "value": { "denom": "uclan", "amount": "50000000000" }
+        "value": { "denom": "uclan", "amount": "500000000000" }
       }
     ],
     "memo": "0cb936b2e3256c8d9d90362f2695688b9d3a1b9e@10.142.0.13:26656",
@@ -44,6 +44,6 @@
     "fee": { "amount": [], "gas_limit": "200000", "payer": "", "granter": "" }
   },
   "signatures": [
-    "CeJ9wjhiyIjEX5/Nfyox5km0DisFOevFFVGAkpvcWJ9oMf8IPtB7ttg+RkaqJ8IR8iZ5h+AO5X3SjU30fFB+0A=="
+    "xrelXtvPMqwtb4brzME7ekIl/tx/drKrA14GuJtnPBgTbZeNEPjgQ9/kY/Q6eldT6dSrA9NGqqdOn2UG96Q9Vg=="
   ]
 }

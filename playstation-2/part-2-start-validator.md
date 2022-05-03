@@ -11,13 +11,13 @@
 **Genesis File**
 
 ```
-TBD
+https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation-2/genesis.json
 ```
 
 **Genesis Sha256**
 
 ```
-TBD
+10a70486f8215a2216f977084c160aabb660e1ee7ab4d25a89aeef86528fb387
 ```
 
 **Persistent Peers**
@@ -58,16 +58,22 @@ These examples are written targeting an Ubuntu 20.04 system. Relevant changes to
 curl -s  https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation-2/genesis.json > ~/.clan/config/genesis.json
 ```
 
-### 2. Verify your genesis file was created properly
+### 2. Reset your local database
+
+```sh
+cland tendermint unsafe-reset-all --home=$HOME/.clan/
+```
+
+### 3. Verify your genesis file was created properly
 
 ```sh
 sha256sum ~/.clan/config/genesis.json
-TBD
+10a70486f8215a2216f977084c160aabb660e1ee7ab4d25a89aeef86528fb387
 ```
 
-### 3. Updates to config files
+### 4. Updates to config files
 
-#### 3.1 Add persistent peers in `config.toml`.
+#### 4.1 Add persistent peers in `config.toml`.
 
 ```sh
 #Set the base repo URL for the testnet & retrieve peers
@@ -81,14 +87,14 @@ echo $PEERS
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" ~/.clan/config/config.toml
 ```
 
-#### 3.2 Set 0 gas prices in `app.toml`:
+#### 4.2 Set 0 gas prices in `app.toml`:
 
 ```sh
 # note testnet denom
 sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0uclan\"/" ~/.clan/config/app.toml
 ```
 
-### 4. Start your node
+### 5. Start your node
 
 Now that everything is setup and ready to go, you can start your node.
 

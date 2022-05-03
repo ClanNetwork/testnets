@@ -34,30 +34,30 @@ fi
 rm -f ~/.clan/config/genesis.json
 rm -f ~/.clan/config/gentx/*
 
-# declare -a SNAPSHOTS_LIST=($SNAPSHOT_ATOM_STAKERS $SNAPSHOT_TERRA_STAKERS $SNAPSHOT_SCRT_STAKERS $SNAPSHOT_TANGO_HOLDERS)
-# declare -a EXCHANGES_LIST=($EXCHANGES_TERRA $EXCHANGES_COSMOSHUB $EXCHANGES_SECRET)
+declare -a SNAPSHOTS_LIST=($SNAPSHOT_ATOM_STAKERS $SNAPSHOT_TERRA_STAKERS $SNAPSHOT_SCRT_STAKERS $SNAPSHOT_TANGO_HOLDERS)
+declare -a EXCHANGES_LIST=($EXCHANGES_TERRA $EXCHANGES_COSMOSHUB $EXCHANGES_SECRET)
 
-# for i in "${EXCHANGES_LIST[@]}"
-# do
-#     echo "Downloading $i"
-#     wget -N snapshots.clan.network/$i
-# done
+for i in "${EXCHANGES_LIST[@]}"
+do
+    echo "Downloading $i"
+    wget -N snapshots.clan.network/$i
+done
 
-# for i in "${SNAPSHOTS_LIST[@]}"
-# do
-#     echo "Downloading $i holders snapshot..."
-#     wget -N snapshots.clan.network/$i.json.gz
-#     echo "Unzipping $i holders snapshot..."
-#     gzip -d -f $i.json.gz
-# done
+for i in "${SNAPSHOTS_LIST[@]}"
+do
+    echo "Downloading $i holders snapshot..."
+    wget -N snapshots.clan.network/$i.json.gz
+    echo "Unzipping $i holders snapshot..."
+    gzip -d -f $i.json.gz
+done
 
-# cland export-snapshot ./$SNAPSHOT_TERRA_STAKERS.json ./$SNAPSHOT_TERRA_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_TERRA --minStaked=10000000 --whalecap=200000000000  
-# cland export-snapshot ./$SNAPSHOT_SCRT_STAKERS.json ./$SNAPSHOT_SCRT_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_SECRET --minStaked=100000000 --whalecap=200000000000 
-# cland export-snapshot ./$SNAPSHOT_ATOM_STAKERS.json ./$SNAPSHOT_ATOM_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_COSMOSHUB --minStaked=50000000 --whalecap=280000000000  
-# cland export-tango-snapshot ./$SNAPSHOT_TANGO_HOLDERS.json ./$SNAPSHOT_TANGO_HOLDERS-output.json $TANGO_AIRDROP_ALLOCATION --minTango=1000
+cland export-snapshot ./$SNAPSHOT_TERRA_STAKERS.json ./$SNAPSHOT_TERRA_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_TERRA --minStaked=10000000 --whalecap=200000000000  
+cland export-snapshot ./$SNAPSHOT_SCRT_STAKERS.json ./$SNAPSHOT_SCRT_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_SECRET --minStaked=100000000 --whalecap=200000000000 
+cland export-snapshot ./$SNAPSHOT_ATOM_STAKERS.json ./$SNAPSHOT_ATOM_STAKERS-output.json $COSMOS_AIRDROP_ALLOCATION $EXCHANGES_COSMOSHUB --minStaked=50000000 --whalecap=280000000000  
+cland export-tango-snapshot ./$SNAPSHOT_TANGO_HOLDERS.json ./$SNAPSHOT_TANGO_HOLDERS-output.json $TANGO_AIRDROP_ALLOCATION --minTango=1000
 
-# cland snapshot-to-claim-records ./$SNAPSHOT_TERRA_STAKERS-output.json ./$SNAPSHOT_SCRT_STAKERS-output.json ./$SNAPSHOT_ATOM_STAKERS-output.json --outputFile=./$EXPORTED_CLAIM_RECORDS 
-# cland snapshot-to-claim-eth-records ./$SNAPSHOT_TANGO_HOLDERS-output.json --outputFile=./$EXPORTED_CLAIM_ETH_RECORDS
+cland snapshot-to-claim-records ./$SNAPSHOT_TERRA_STAKERS-output.json ./$SNAPSHOT_SCRT_STAKERS-output.json ./$SNAPSHOT_ATOM_STAKERS-output.json --outputFile=./$EXPORTED_CLAIM_RECORDS 
+cland snapshot-to-claim-eth-records ./$SNAPSHOT_TANGO_HOLDERS-output.json --outputFile=./$EXPORTED_CLAIM_ETH_RECORDS
 
 cland init testmoniker --chain-id=$CHAIN_ID
 cland prepare-genesis testnet $CHAIN_ID ./$EXPORTED_CLAIM_ETH_RECORDS ./$EXPORTED_CLAIM_RECORDS --daoAddr=$DAO_ADDRESS --coreDevAddr=$CORE_DEV_ADDRESS
