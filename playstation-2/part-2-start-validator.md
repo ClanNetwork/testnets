@@ -76,14 +76,17 @@ sha256sum ~/.clan/config/genesis.json
 #### 4.1 Add persistent peers in `config.toml`.
 
 ```sh
-#Set the base repo URL for the testnet & retrieve peers
-CHAIN_REPO="https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation-2" && \
-export PEERS="$(curl -s "$CHAIN_REPO/persistent_peers.txt")"
-
-# check it worked
+export CHAIN_REPO="https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation-2"
+export PEERS="$(curl -s "$CHAIN_REPO/persistent-peers.txt")"
 echo $PEERS
 
+be8f9c8ff85674de396075434862d31230adefa4@35.231.178.87:26656,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e@34.73.151.40:26656,e85dc5ec5b77e86265b5b731d4c555ef2430472a@23.88.43.130:26656,9d7ec4cb534717bfa51cdb1136875d17d10f93c3@116.203.60.243:26656,3049356ee6e6d7b2fa5eef03555a620f6ff7591b@65.108.98.218:56656,61db9dede0dff74af9309695b190b556a4266ebf@34.76.96.82:26656,d97c9ac4a8bb0744c7e7c1a17ac77e9c33dc6c34@34.116.229.135:26656
 
+```
+
+If output looks fine then you can run:
+
+```
 sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" ~/.clan/config/config.toml
 ```
 
@@ -144,6 +147,21 @@ You can check the status with:
 
 ```sh
 systemctl status cland
+```
+
+To verify you are correct you should see the following logs:
+
+```
+5:54PM INF Completed ABCI Handshake - Tendermint and App are synced appHash= appHeight=0 module=consensus
+5:54PM INF Version info block=11 p2p=8 tendermint_version=0.34.19
+5:54PM INF This node is a validator addr=3146B4B41C9A6AD42BE4E9796CB4B221663A0D0D module=consensus pubKey=g/2>
+5:54PM INF P2P Node ID ID=d97c9ac4a8bb0744c7e7c1a17ac77e9c33dc6c34 file=/home/amit/.clan/config/node_key.json>
+5:54PM INF Adding persistent peers addrs=["be8f9c8ff85674de396075434862d31230adefa4@35.231.178.87:26656","0cb>
+5:54PM INF Adding unconditional peer ids ids=[] module=p2p
+5:54PM INF Add our address to book addr={"id":"d97c9ac4a8bb0744c7e7c1a17ac77e9c33dc6c34","ip":"0.0.0.0","port>
+5:54PM INF Starting Node service impl=Node
+5:54PM INF Genesis time is in the future. Sleeping until then... genTime=2022-05-04T08:00:00Z
+5:54PM INF Starting pprof server laddr=localhost:6060
 ```
 
 ## Conclusion
