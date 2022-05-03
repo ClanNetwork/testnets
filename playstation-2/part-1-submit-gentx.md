@@ -1,4 +1,4 @@
-# Clan Network PlayStation-1 Testnet Instructions (1/2): Submit Gentx
+# Clan Network PlayStation-2 Testnet Instructions (1/2): Submit Gentx
 
 ## Minimum hardware requirements
 
