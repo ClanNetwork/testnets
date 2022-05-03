@@ -23,7 +23,7 @@ TBD
 **Persistent Peers**
 
 ```sh
-persistent_peers = "be8f9c8ff85674de396075434862d31230adefa4@35.231.178.87:26656,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e@34.73.151.40:26656,e85dc5ec5b77e86265b5b731d4c555ef2430472a@23.88.43.130:26656,9d7ec4cb534717bfa51cdb1136875d17d10f93c3@116.203.60.243:26656"
+persistent_peers = "be8f9c8ff85674de396075434862d31230adefa4@35.231.178.87:26656,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e@34.73.151.40:26656,e85dc5ec5b77e86265b5b731d4c555ef2430472a@23.88.43.130:26656,9d7ec4cb534717bfa51cdb1136875d17d10f93c3@116.203.60.243:26656,3049356ee6e6d7b2fa5eef03555a620f6ff7591b@65.108.98.218:56656,61db9dede0dff74af9309695b190b556a4266ebf@34.76.96.82:26656,d97c9ac4a8bb0744c7e7c1a17ac77e9c33dc6c34@34.116.229.135:26656"
 ```
 
 **Seed nodes**
@@ -70,21 +70,22 @@ TBD
 #### 3.1 Add persistent peers in `config.toml`.
 
 ```sh
-vim $HOME/.clan/config/config.toml
-```
+#Set the base repo URL for the testnet & retrieve peers
+CHAIN_REPO="https://raw.githubusercontent.com/ClanNetwork/testnets/main/playstation-2" && \
+export PEERS="$(curl -s "$CHAIN_REPO/persistent_peers.txt")"
 
-```sh
-persistent_peers = "be8f9c8ff85674de396075434862d31230adefa4@35.231.178.87:26656,0cb936b2e3256c8d9d90362f2695688b9d3a1b9e@34.73.151.40:26656,e85dc5ec5b77e86265b5b731d4c555ef2430472a@23.88.43.130:26656,9d7ec4cb534717bfa51cdb1136875d17d10f93c3@116.203.60.243:26656"
+# check it worked
+echo $PEERS
+
+
+sed -i.bak -e "s/^persistent_peers *=.*/persistent_peers = \"$PEERS\"/" ~/.clan/config/config.toml
 ```
 
 #### 3.2 Set 0 gas prices in `app.toml`:
 
 ```sh
-vim $HOME/.clan/config/app.toml
-```
-
-```sh
-minimum-gas-prices = "0uclan"
+# note testnet denom
+sed -i.bak -e "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0uclan\"/" ~/.clan/config/app.toml
 ```
 
 ### 4. Start your node
